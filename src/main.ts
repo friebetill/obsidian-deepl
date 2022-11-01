@@ -1,8 +1,7 @@
 import { Editor, MarkdownView, Plugin } from "obsidian";
 
-export default class MyPlugin extends Plugin {
+export default class DeepLPlugin extends Plugin {
 	async onload() {
-		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: "deepl-translate",
 			name: "Translate",
