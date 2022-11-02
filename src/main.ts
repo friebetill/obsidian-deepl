@@ -21,6 +21,10 @@ export default class DeepLPlugin extends Plugin {
 			id: "deepl-translate",
 			name: "Translate",
 			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
 				try {
 					const translation = await this.deeplService.translate(
 						editor.getSelection(),
