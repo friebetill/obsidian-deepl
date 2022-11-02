@@ -16,6 +16,9 @@ export class SettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
+		containerEl.createEl("h2", {
+			text: "Obsidian DeepL - Settings",
+		});
 		new Setting(containerEl)
 			.setName("DeepL API Key")
 			.setDesc("Get one for free at https://deepl.com/pro.")
