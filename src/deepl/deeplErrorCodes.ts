@@ -1,0 +1,11 @@
+/** The HTTP error status code of the DeepL API. */
+export enum DeepLErrorCodes {
+	BAD_REQUEST = 400,
+	FORBIDDEN = 403,
+	NOT_FOUND = 404,
+	PAYLOAD_TOO_LARGE = 413,
+	TOO_MANY_REQUEST = 429,
+	QUOTA_EXCEEDED = 456,
+	INTERNAL_SERVER_ERROR = 500,
+	SERVICE_UNAVAILABLE = 503,
+}
