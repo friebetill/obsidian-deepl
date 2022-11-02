@@ -56,5 +56,17 @@ export class SettingTab extends PluginSettingTab {
 						await this.plugin.saveSettings();
 					})
 			);
+
+		new Setting(containerEl)
+			.setName("Show in status bar")
+			.setDesc("Select the to language in the status bar.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.showStatusBar)
+					.onChange(async (value) => {
+						this.plugin.settings.showStatusBar = value;
+						await this.plugin.saveSettings();
+					})
+			);
 	}
 }
