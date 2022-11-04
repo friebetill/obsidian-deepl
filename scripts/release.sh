@@ -47,7 +47,7 @@ askForNewVersion() {
 }
 
 updatePackageJson() {
-    echo "Update version in package.json. Press ENTER to execute or ESC to skip."
+    echo "Update version in package.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
         sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" ../package.json
 
@@ -66,7 +66,7 @@ updatePackageJson() {
 }
 
 updateManifestJson() {
-    echo "Update version in manifest.json. Press ENTER to execute or ESC to skip."
+    echo "Update version in manifest.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
         sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" ../manifest.json
 
@@ -85,7 +85,7 @@ updateManifestJson() {
 }
 
 addPackageAndManifestJson() {
-    echo "Add package.json and manifest.json to git. Press ENTER to execute or ESC to skip."
+    echo "Add package.json and manifest.json to git. Press ENTER to add or ESC to skip."
     if askForEnter; then
         git add ../package.json
         git add ../manifest.json
@@ -95,7 +95,7 @@ addPackageAndManifestJson() {
 }
 
 commitChanges() {
-    echo "Commit changes. Press ENTER to execute or ESC to skip."
+    echo "Commit changes. Press ENTER to commit or ESC to skip."
     if askForEnter; then
         git commit -m "Release version $NEW_VERSION"
     fi
@@ -103,7 +103,7 @@ commitChanges() {
 }
 
 pushChanges() {
-    echo "Push changes. Press ENTER to execute or ESC to skip."
+    echo "Push changes. Press ENTER to push or ESC to skip."
     if askForEnter; then
         git push
     fi
@@ -111,7 +111,7 @@ pushChanges() {
 }
 
 createGitHubRelease() {
-    echo "Create GitHub release. Press ENTER to execute or ESC to skip."
+    echo "Create GitHub release. Press ENTER to create or ESC to skip."
     if askForEnter; then
         gh release create "$NEW_VERSION" ../manifest.json ../main.js ../styles.css --generate-notes
     fi
