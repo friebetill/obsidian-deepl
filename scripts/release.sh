@@ -12,6 +12,7 @@ main() {
 
     updatePackageJson
     updateManifestJson
+    updateVersionsJson
 
     addPackageAndManifestJson
     commitChanges
@@ -73,6 +74,28 @@ updateManifestJson() {
         echo "Verify version in manifest.json is correct."
         echo ""
         git --no-pager diff ../manifest.json
+        echo ""
+        echo "Press ENTER if the version is correct or ESC to abort."
+        if ! askForEnter; then
+            echo "Aborting release"
+            exit 1
+        fi
+
+        echo ""
+    fi
+}
+
+updateVersionsJson() {
+    echo "Add version to versions.json. Press ENTER to update or ESC to skip."
+    if askForEnter; then
+        # Insert new version to penultimate line in versions.json on macOS
+        sed -i '' "$(wc -l <../versions.json)i\\
+       \"$NEW_VERSION\": \"0.15.0\"
+" ../versions.json
+
+        echo "Verify version in versions.json is correct."
+        echo ""
+        git --no-pager diff ../versions.json
         echo ""
         echo "Press ENTER if the version is correct or ESC to abort."
         if ! askForEnter; then
