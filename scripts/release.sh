@@ -106,10 +106,11 @@ updateVersionsJson() {
 }
 
 addPackageAndManifestJson() {
-    echo "Add package.json and manifest.json to Git. Press ENTER to add or ESC to skip."
+    echo "Add package.json, manifest.json and versions.json to Git. Press ENTER to add or ESC to skip."
     if askForEnter; then
         git add ../package.json
         git add ../manifest.json
+        git add ../versions.json
     fi
 
     echo ""
