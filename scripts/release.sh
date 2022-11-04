@@ -88,10 +88,8 @@ updateManifestJson() {
 updateVersionsJson() {
     echo "Add version to versions.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
-        # Insert new version to penultimate line in versions.json on macOS
-        sed -i '' "$(wc -l <../versions.json)i\\
-       \"$NEW_VERSION\": \"0.15.0\"
-" ../versions.json
+        # Add new version after line with current version in versions.json on macOS
+        sed -i "" -E "s/(\"1.0.0\":.*)/\1,\n\t\"$NEW_VERSION\": \"0.15.0\"/g" ../versions.json
 
         echo "Verify version in versions.json is correct."
         echo ""
@@ -108,7 +106,7 @@ updateVersionsJson() {
 }
 
 addPackageAndManifestJson() {
-    echo "Add package.json and manifest.json to git. Press ENTER to add or ESC to skip."
+    echo "Add package.json and manifest.json to Git. Press ENTER to add or ESC to skip."
     if askForEnter; then
         git add ../package.json
         git add ../manifest.json
