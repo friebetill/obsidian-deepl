@@ -2,6 +2,7 @@
 
 CURRENT_VERSION=""
 NEW_VERSION=""
+OBSIDIAN_MINIMUM_VERSION="0.15.0"
 
 # This script is used to release a new version of the project.
 main() {
@@ -94,7 +95,7 @@ updateVersionsJson() {
     echo "Add version to versions.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
         # Add new version after line with current version in versions.json on macOS
-        sed -i "" -E "s/(\"1.0.0\":.*)/\1,\n\t\"$NEW_VERSION\": \"0.15.0\"/g" versions.json
+        sed -i "" -E "s/(\"$CURRENT_VERSION\":.*)/\1,\n\t\"$NEW_VERSION\": \"$OBSIDIAN_MINIMUM_VERSION\"/g" versions.json
 
         echo "Verify version in versions.json is correct."
         echo ""
