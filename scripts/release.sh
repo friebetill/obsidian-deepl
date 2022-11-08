@@ -7,13 +7,16 @@ NEW_VERSION=""
 main() {
     verifyDependencies
 
+    # Version
     readCurrentVersion
     askForNewVersion
 
+    # Update files
     updatePackageJson
     updateManifestJson
     updateVersionsJson
 
+    # Git
     addUpdatedFiles
     commitChanges
     pushChanges
