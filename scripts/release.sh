@@ -14,7 +14,7 @@ main() {
     updateManifestJson
     updateVersionsJson
 
-    addPackageAndManifestJson
+    addUpdatedFiles
     commitChanges
     pushChanges
 
@@ -105,7 +105,7 @@ updateVersionsJson() {
     fi
 }
 
-addPackageAndManifestJson() {
+addUpdatedFiles() {
     echo "Add package.json, manifest.json and versions.json to Git. Press ENTER to add or ESC to skip."
     if askForEnter; then
         git add ../package.json
