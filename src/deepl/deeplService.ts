@@ -1,12 +1,15 @@
 import { request } from "obsidian";
 import { Translation } from "src/data/translation";
 import { DeepLException } from "./deeplException";
+import { Processor } from "./processor";
 
 export class DeepLService {
 	private apiKey: string;
+	private processor: Processor;
 
 	public constructor(apiKey: string) {
 		this.apiKey = apiKey;
+		this.processor = new Processor();
 	}
 
 	public setApiKey(apiKey: string) {
@@ -19,6 +22,8 @@ export class DeepLService {
 		fromLanguage?: string
 	): Promise<Translation[]> {
 		try {
+			const preprocessedText = this.processor.preprocess(text);
+
 			const useFromLanguage =
 				fromLanguage != null && fromLanguage != "AUTO";
 
@@ -27,7 +32,7 @@ export class DeepLService {
 				method: "POST",
 				contentType: "application/x-www-form-urlencoded",
 				body: new URLSearchParams({
-					text: text,
+					text: preprocessedText,
 					target_lang: toLanguage,
 					...(useFromLanguage && { source_lang: fromLanguage }),
 				}).toString(),
@@ -37,7 +42,14 @@ export class DeepLService {
 
 			const parsedResponse = JSON.parse(response);
 			const translations: Translation[] = parsedResponse.translations;
-			return translations;
+
+			return translations.map((translation) => {
+				return {
+					text: this.processor.postprocess(translation.text),
+					detected_source_language:
+						translation.detected_source_language,
+				};
+			});
 		} catch (error) {
 			let statusCode = 500;
 
