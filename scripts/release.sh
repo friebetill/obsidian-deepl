@@ -21,6 +21,8 @@ main() {
     commitChanges
     pushChanges
 
+    buildRelease
+
     createGitHubRelease
 }
 
@@ -131,6 +133,14 @@ pushChanges() {
     echo "Push changes. Press ENTER to push or ESC to skip."
     if askForEnter; then
         git push
+    fi
+    echo ""
+}
+
+buildRelease() {
+    echo "Build release. Press ENTER to build or ESC to skip."
+    if askForEnter; then
+        npm run build
     fi
     echo ""
 }
