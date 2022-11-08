@@ -35,7 +35,7 @@ verifyDependencies() {
 }
 
 readCurrentVersion() {
-    CURRENT_VERSION=$(cat ../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+    CURRENT_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
 }
 
 askForNewVersion() {
@@ -55,11 +55,11 @@ askForNewVersion() {
 updatePackageJson() {
     echo "Update version in package.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
-        sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" ../package.json
+        sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json
 
         echo "Verify version in package.json is correct"
         echo ""
-        git --no-pager diff ../package.json
+        git --no-pager diff package.json
         echo ""
         echo "Press ENTER if the version is correct or ESC to abort."
         if ! askForEnter; then
@@ -74,11 +74,11 @@ updatePackageJson() {
 updateManifestJson() {
     echo "Update version in manifest.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
-        sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" ../manifest.json
+        sed -i '' "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/g" manifest.json
 
         echo "Verify version in manifest.json is correct."
         echo ""
-        git --no-pager diff ../manifest.json
+        git --no-pager diff manifest.json
         echo ""
         echo "Press ENTER if the version is correct or ESC to abort."
         if ! askForEnter; then
@@ -94,11 +94,11 @@ updateVersionsJson() {
     echo "Add version to versions.json. Press ENTER to update or ESC to skip."
     if askForEnter; then
         # Add new version after line with current version in versions.json on macOS
-        sed -i "" -E "s/(\"1.0.0\":.*)/\1,\n\t\"$NEW_VERSION\": \"0.15.0\"/g" ../versions.json
+        sed -i "" -E "s/(\"1.0.0\":.*)/\1,\n\t\"$NEW_VERSION\": \"0.15.0\"/g" versions.json
 
         echo "Verify version in versions.json is correct."
         echo ""
-        git --no-pager diff ../versions.json
+        git --no-pager diff versions.json
         echo ""
         echo "Press ENTER if the version is correct or ESC to abort."
         if ! askForEnter; then
@@ -113,9 +113,9 @@ updateVersionsJson() {
 addUpdatedFiles() {
     echo "Add package.json, manifest.json and versions.json to Git. Press ENTER to add or ESC to skip."
     if askForEnter; then
-        git add ../package.json
-        git add ../manifest.json
-        git add ../versions.json
+        git add package.json
+        git add manifest.json
+        git add versions.json
     fi
 
     echo ""
@@ -148,7 +148,7 @@ buildRelease() {
 createGitHubRelease() {
     echo "Create GitHub release. Press ENTER to create or ESC to skip."
     if askForEnter; then
-        gh release create "$NEW_VERSION" ../manifest.json ../main.js ../styles.css --generate-notes
+        gh release create "$NEW_VERSION" manifest.json main.js styles.css --generate-notes
     fi
     echo ""
 }
