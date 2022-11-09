@@ -38,7 +38,6 @@ export class Processor {
 		for (const match of matches) {
 			const uniqueString = this.generateUniqueString();
 			this.uniqueIDToLinkText[uniqueString] = match[1];
-			console.log(this.uniqueIDToLinkText);
 
 			processedText = processedText.replace(match[1], uniqueString);
 		}
