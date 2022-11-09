@@ -16,25 +16,21 @@ export class SettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl("h2", {
+		containerEl.createEl("h3", {
 			text: "Obsidian DeepL - Settings",
 		});
-		containerEl.createEl("p", {
-			text: "There is one command `Translate`.",
+
+		containerEl.createEl("h4", {
+			text: "Commands",
 		});
 
-		new Setting(containerEl)
-			.setName("DeepL API Key")
-			.setDesc("Get one for free at https://deepl.com/pro.")
-			.addText((text) =>
-				text
-					.setPlaceholder("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:xx")
-					.setValue(this.plugin.settings.apiKey)
-					.onChange(async (value) => {
-						this.plugin.settings.apiKey = value;
-						await this.plugin.saveSettings();
-					})
-			);
+		containerEl.createEl("p", {
+			text: 'Translate: Translates the selected text from the "From language" to the "To language".',
+		});
+
+		containerEl.createEl("h4", {
+			text: "Language settings",
+		});
 
 		new Setting(containerEl)
 			.setName("From language")
@@ -70,6 +66,23 @@ export class SettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.showStatusBar)
 					.onChange(async (value) => {
 						this.plugin.settings.showStatusBar = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		containerEl.createEl("h4", {
+			text: "Authentication settings",
+		});
+
+		new Setting(containerEl)
+			.setName("DeepL API Key")
+			.setDesc("Get one for free at https://deepl.com/pro.")
+			.addText((text) =>
+				text
+					.setPlaceholder("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:xx")
+					.setValue(this.plugin.settings.apiKey)
+					.onChange(async (value) => {
+						this.plugin.settings.apiKey = value;
 						await this.plugin.saveSettings();
 					})
 			);
