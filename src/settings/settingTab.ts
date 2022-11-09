@@ -2,6 +2,7 @@ import { PluginSettingTab, Setting } from "obsidian";
 import { toLanguages } from "src/deepl/toLanguages";
 import DeepLPlugin from "../main";
 import { fromLanguages } from "./../deepl/fromLanguages";
+import { formalities } from "./pluginSettings";
 
 export class SettingTab extends PluginSettingTab {
 	private plugin: DeepLPlugin;
@@ -59,8 +60,23 @@ export class SettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName("Show in status bar")
-			.setDesc("Select the to language in the status bar.")
+			.setName("Formality")
+			.setDesc(
+				"Sets whether the translated text should lean towards formal or informal language."
+			)
+			.addDropdown((dropdown) =>
+				dropdown
+					.addOptions(formalities)
+					.setValue(this.plugin.settings.formality)
+					.onChange(async (value) => {
+						this.plugin.settings.formality = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		new Setting(containerEl)
+			.setName("Show setting in status bar")
+			.setDesc('Select the "To language" in the status bar.')
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.showStatusBar)

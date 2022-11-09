@@ -1,5 +1,3 @@
-export const defaultToLanguage = "DE";
-
 export const toLanguages: Record<string, string> = {
 	BG: "Bulgarian",
 	CS: "Czech",

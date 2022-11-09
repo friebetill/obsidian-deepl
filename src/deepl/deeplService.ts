@@ -37,6 +37,7 @@ export class DeepLService {
 					text: preprocessedText,
 					target_lang: toLanguage,
 					...(useFromLanguage && { source_lang: fromLanguage }),
+					formality: this.settings.formality,
 				}).toString(),
 				headers: {
 					Authorization: `DeepL-Auth-Key ${this.settings.apiKey}`,

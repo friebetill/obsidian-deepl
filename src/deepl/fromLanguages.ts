@@ -1,5 +1,3 @@
-export const defaultFromLanguage = "AUTO";
-
 export const fromLanguages = {
 	AUTO: "Detect language",
 	BG: "Bulgarian",
