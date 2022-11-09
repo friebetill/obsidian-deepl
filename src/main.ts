@@ -17,7 +17,7 @@ export default class DeepLPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		this.deeplService = new DeepLService(this.settings.apiKey);
+		this.deeplService = new DeepLService(this.settings);
 		this.addSettingTab(new SettingTab(this));
 
 		addStatusBar(this);

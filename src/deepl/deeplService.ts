@@ -1,19 +1,19 @@
 import { request } from "obsidian";
 import { Translation } from "src/data/translation";
+import { DeepLPluginSettings } from "./../settings/pluginSettings";
 import { DeepLException } from "./deeplException";
 import { Processor } from "./processor";
 
+const deeplFreeAPI = "https://api-free.deepl.com/v2";
+const deeplProAPI = "https://api.deepl.com/v2";
+
 export class DeepLService {
-	private apiKey: string;
+	private settings: DeepLPluginSettings;
 	private processor: Processor;
 
-	public constructor(apiKey: string) {
-		this.apiKey = apiKey;
+	public constructor(settings: DeepLPluginSettings) {
+		this.settings = settings;
 		this.processor = new Processor();
-	}
-
-	public setApiKey(apiKey: string) {
-		this.apiKey = apiKey;
 	}
 
 	public async translate(
@@ -27,8 +27,10 @@ export class DeepLService {
 			const useFromLanguage =
 				fromLanguage != null && fromLanguage != "AUTO";
 
+			const api = this.settings.useProAPI ? deeplProAPI : deeplFreeAPI;
+
 			const response = await request({
-				url: "https://api-free.deepl.com/v2/translate",
+				url: `${api}/translate`,
 				method: "POST",
 				contentType: "application/x-www-form-urlencoded",
 				body: new URLSearchParams({
@@ -36,7 +38,9 @@ export class DeepLService {
 					target_lang: toLanguage,
 					...(useFromLanguage && { source_lang: fromLanguage }),
 				}).toString(),
-				headers: { Authorization: `DeepL-Auth-Key ${this.apiKey}` },
+				headers: {
+					Authorization: `DeepL-Auth-Key ${this.settings.apiKey}`,
+				},
 				throw: true,
 			});
 
@@ -54,12 +58,8 @@ export class DeepLService {
 			let statusCode = 500;
 
 			if (error instanceof Error) {
-				// Fails if message contains more than one three character number
-				const statusCodeRegExp = new RegExp("[0-9][0-9][0-9]");
-
 				statusCode =
-					Number(statusCodeRegExp.exec(error.message)?.[0]) ??
-					statusCode;
+					Number(error.message.match("[0-9]{3}")?.[0]) ?? statusCode;
 			}
 
 			throw DeepLException.createFromStatusCode(statusCode, error);

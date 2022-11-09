@@ -6,6 +6,7 @@ export interface DeepLPluginSettings {
 	fromLanguage: string;
 	toLanguage: string;
 	showStatusBar: boolean;
+	useProAPI: boolean;
 }
 
 export const defaultSettings: Partial<DeepLPluginSettings> = {
@@ -13,4 +14,5 @@ export const defaultSettings: Partial<DeepLPluginSettings> = {
 	fromLanguage: defaultFromLanguage,
 	toLanguage: defaultToLanguage,
 	showStatusBar: true,
+	useProAPI: false,
 };

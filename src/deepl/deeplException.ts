@@ -17,7 +17,7 @@ export class DeepLException extends Error {
 		switch (statusCode) {
 			case DeepLErrorCodes.FORBIDDEN:
 				exception.message =
-					"Authentication failed. Please check your DeepL API key in the settings.";
+					"Authentication failed. Please check your DeepL API key in the settings. Make sure you use the correct API free or pro.";
 				break;
 
 			case DeepLErrorCodes.PAYLOAD_TOO_LARGE:

@@ -31,8 +31,6 @@ export class SettingTab extends PluginSettingTab {
 					.setPlaceholder("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:xx")
 					.setValue(this.plugin.settings.apiKey)
 					.onChange(async (value) => {
-						this.plugin.deeplService.setApiKey(value);
-
 						this.plugin.settings.apiKey = value;
 						await this.plugin.saveSettings();
 					})
@@ -72,6 +70,18 @@ export class SettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.showStatusBar)
 					.onChange(async (value) => {
 						this.plugin.settings.showStatusBar = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		new Setting(containerEl)
+			.setName("Use DeepL Pro API")
+			.setDesc("Whether to use the DeepL Pro API or the DeepL Free API.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.useProAPI)
+					.onChange(async (value) => {
+						this.plugin.settings.useProAPI = value;
 						await this.plugin.saveSettings();
 					})
 			);
