@@ -4,7 +4,7 @@ import { DeepLException } from "./deepl/deeplException";
 import { DeepLService } from "./deepl/deeplService";
 import {
 	DeepLPluginSettings,
-	defaultSettings,
+	defaultSettings
 } from "./settings/pluginSettings";
 import { SettingTab } from "./settings/settingTab";
 import { addStatusBar } from "./settings/statusbar";
@@ -23,8 +23,8 @@ export default class DeepLPlugin extends Plugin {
 		addStatusBar(this);
 
 		this.addCommand({
-			id: "deepl-translate",
-			name: "Translate",
+			id: "deepl-translate-selection",
+			name: "Translate selection",
 			editorCallback: async (editor: Editor) => {
 				if (editor.getSelection() === "") {
 					return;

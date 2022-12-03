@@ -7,7 +7,7 @@ Translate your texts with [DeepL](https://www.deepl.com/) in [Obsidian](https://
 
 ## Commands
 
-Currently there is one command for translating selected texts `DeepL: Translate`. You can set the language from and to which you want to translate in the settings. Later, more commands are added.
+Currently there is one command for translating selected texts `DeepL: Translate selection`. You can set the language from and to which you want to translate in the settings. Later, more commands are added.
 
 ## Requirements
 
