@@ -1,7 +1,9 @@
 # Obsidian DeepL
 
-Translate your texts with [DeepL](https://www.deepl.com/) in
-[Obsidian](https://obsidian.md/).
+[![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?color=7e6ad6&labelColor=34208c&label=Obsidian%20Downloads&query=$['deepl'].downloads&url=https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugin-stats.json&)](obsidian://show-plugin?id=deepl)
+![GitHub stars](https://img.shields.io/github/stars/friebetill/obsidian-deepl?style=flat)
+
+Translate your texts with [DeepL](https://www.deepl.com/) in [Obsidian](https://obsidian.md/).
 
 ## Commands
 
