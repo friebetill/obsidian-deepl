@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-deepl",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Allows translation of selected texts into more than 25 languages with DeepL for Obsidian.md.",
 	"main": "main.js",
 	"scripts": {
