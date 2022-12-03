@@ -7,14 +7,11 @@ Translate your texts with [DeepL](https://www.deepl.com/) in [Obsidian](https://
 
 ## Commands
 
-Currently there is one command for translating selected texts `DeepL:
-Translate`. You can set the language from and to which you want to translate in
-the settings. Later, more commands are added.
+Currently there is one command for translating selected texts `DeepL: Translate`. You can set the language from and to which you want to translate in the settings. Later, more commands are added.
 
 ## Requirements
 
-To use the plugin you need a DeepL API key. You can get it for free after
-creating a DeepL account at [https://deepl.com/pro](https://deepl.com/pro).
+To use the plugin you need a DeepL API key. You can get it for free after creating a DeepL account at [https://deepl.com/pro](https://deepl.com/pro).
 
 ## Disclaimer
 
@@ -22,6 +19,4 @@ This is not an official plugin from DeepL, but was developed by me.
 
 ## Privacy policy
 
-Your texts will be sent to DeepL, please check the [privacy
-policy](https://www.deepl.com/en/privacy/) of DeepL. Don't use the plugin if you
-don't agree with the privacy policy.
+Your texts will be sent to DeepL, please check the [privacy policy](https://www.deepl.com/en/privacy/) of DeepL. Don't use the plugin if you don't agree with the privacy policy.
