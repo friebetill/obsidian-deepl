@@ -26,7 +26,7 @@ export class SettingTab extends PluginSettingTab {
 		});
 
 		containerEl.createEl("p", {
-			text: 'Translate: Translates the selected text from the "From language" to the "To language".',
+			text: 'Translate selection: Translates the selected text from the "From language" to the "To language".',
 		});
 
 		containerEl.createEl("h4", {
