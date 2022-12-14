@@ -41,6 +41,7 @@ export default class DeepLPlugin extends Plugin {
 					if (error instanceof DeepLException) {
 						new Notice(error.message);
 					} else {
+						console.error(error, error.stack);
 						new Notice(
 							"An unknown error occured. See console for details."
 						);

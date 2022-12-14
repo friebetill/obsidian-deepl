@@ -10,7 +10,8 @@ export class DeepLException extends Error {
 
 	public static createFromStatusCode(
 		statusCode: number,
-		originalError: string
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		originalError: any
 	) {
 		const exception = new DeepLException(statusCode);
 		exception.name = DeepLException.name;
@@ -37,7 +38,7 @@ export class DeepLException extends Error {
 			default:
 				exception.message =
 					"An unknown error occured. See console for more details.";
-				console.log(originalError);
+				console.error(originalError, originalError.stack);
 				break;
 		}
 		return exception;
