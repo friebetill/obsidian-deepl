@@ -114,6 +114,39 @@ export default class DeepLPlugin extends Plugin {
 				}).open();
 			},
 		});
+
+		this.addCommand({
+			id: "deepl-translate-selection-from-to",
+			name: "Translate selection: From a language to another",
+			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
+				new TranslateModal(app, "From", async (from) => {
+					new TranslateModal(app, "To", async (to) => {
+						try {
+							const translation =
+								await this.deeplService.translate(
+									editor.getSelection(),
+									to.code,
+									from.code
+								);
+							editor.replaceSelection(translation[0].text);
+						} catch (error) {
+							if (error instanceof DeepLException) {
+								new Notice(error.message);
+							} else {
+								console.error(error, error.stack);
+								new Notice(
+									"An unknown error occured. See console for details."
+								);
+							}
+						}
+					}).open();
+				}).open();
+			},
+		});
 	}
 
 	async loadSettings() {
