@@ -4,10 +4,11 @@ import { DeepLException } from "./deepl/deeplException";
 import { DeepLService } from "./deepl/deeplService";
 import {
 	DeepLPluginSettings,
-	defaultSettings
+	defaultSettings,
 } from "./settings/pluginSettings";
 import { SettingTab } from "./settings/settingTab";
 import { addStatusBar } from "./settings/statusbar";
+import { TranslateModal } from "./deepl/translateModal";
 
 export default class DeepLPlugin extends Plugin {
 	public deeplService: DeepLService;
@@ -47,6 +48,40 @@ export default class DeepLPlugin extends Plugin {
 						);
 					}
 				}
+			},
+		});
+
+		this.addCommand({
+			id: "deepl-translate-selection-append",
+			name: "Translate selection: To language and append to selection",
+			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
+				const selection = editor.getSelection();
+
+				new TranslateModal(app, "To", async (language) => {
+					try {
+						const translation = await this.deeplService.translate(
+							selection,
+							language.code,
+							this.settings.fromLanguage
+						);
+						editor.replaceSelection(
+							`${selection} ${translation[0].text}`
+						);
+					} catch (error) {
+						if (error instanceof DeepLException) {
+							new Notice(error.message);
+						} else {
+							console.error(error, error.stack);
+							new Notice(
+								"An unknown error occured. See console for details."
+							);
+						}
+					}
+				}).open();
 			},
 		});
 	}
