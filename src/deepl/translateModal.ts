@@ -1,20 +1,15 @@
 import { App, SuggestModal } from "obsidian";
-import { toLanguages } from "src/deepl/toLanguages";
 
-export interface Language {
+interface Language {
 	code: string;
 	name: string;
 }
 
 export class TranslateModal extends SuggestModal<Language> {
-	languages: Language[] = Object.entries(toLanguages).map(([code, name]) => ({
-		code,
-		name,
-	}));
-
 	constructor(
 		app: App,
 		placeholder: string,
+		public languages: Language[],
 		public callback: (result: Language) => void
 	) {
 		super(app);
