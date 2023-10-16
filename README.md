@@ -7,7 +7,12 @@ Translate your texts with [DeepL](https://www.deepl.com/) in [Obsidian](https://
 
 ## Commands
 
-Currently there is one command for translating selected texts `DeepL: Translate selection`. You can set the language from and to which you want to translate in the settings. Later, more commands are added.
+| Command                                                  | Description                                                                                                                                                                      |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Translate selection                                      | You can set the language from and to which you want to translate in the settings.                                                                                                |
+| Translate selection: to language                         | The target language can be selected by suggestion modal. The target language can be selected by suggestion modal. The selection will be replaced by the translation.             |
+| Translate selection: From a language to another          | The source and target languages can be selected by suggestion modal. The target language can be selected by suggestion modal. The selection will be replaced by the translation. |
+| Translate selection: To language and append to selection | The target language can be selected by suggestion modal. The translation will be appended to the selection.                                                                      |
 
 ## Requirements
 

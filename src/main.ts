@@ -4,10 +4,12 @@ import { DeepLException } from "./deepl/deeplException";
 import { DeepLService } from "./deepl/deeplService";
 import {
 	DeepLPluginSettings,
-	defaultSettings
+	defaultSettings,
 } from "./settings/pluginSettings";
 import { SettingTab } from "./settings/settingTab";
 import { addStatusBar } from "./settings/statusbar";
+import { TranslateModal } from "./deepl/translateModal";
+import { fromLanguages } from "./deepl/fromLanguages";
 
 export default class DeepLPlugin extends Plugin {
 	public deeplService: DeepLService;
@@ -47,6 +49,139 @@ export default class DeepLPlugin extends Plugin {
 						);
 					}
 				}
+			},
+		});
+
+		this.addCommand({
+			id: "deepl-translate-selection-append",
+			name: "Translate selection: To language and append to selection",
+			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
+				const selection = editor.getSelection();
+
+				new TranslateModal(
+					app,
+					"To",
+					Object.entries(toLanguages).map(([code, name]) => ({
+						code,
+						name,
+					})),
+					async (language) => {
+						try {
+							const translation =
+								await this.deeplService.translate(
+									selection,
+									language.code,
+									this.settings.fromLanguage
+								);
+							editor.replaceSelection(
+								`${selection} ${translation[0].text}`
+							);
+						} catch (error) {
+							if (error instanceof DeepLException) {
+								new Notice(error.message);
+							} else {
+								console.error(error, error.stack);
+								new Notice(
+									"An unknown error occured. See console for details."
+								);
+							}
+						}
+					}
+				).open();
+			},
+		});
+
+		this.addCommand({
+			id: "deepl-translate-selection-to",
+			name: "Translate selection: to language",
+			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
+				new TranslateModal(
+					app,
+					"To",
+					Object.entries(toLanguages).map(([code, name]) => ({
+						code,
+						name,
+					})),
+					async (language) => {
+						try {
+							const translation =
+								await this.deeplService.translate(
+									editor.getSelection(),
+									language.code,
+									this.settings.fromLanguage
+								);
+							editor.replaceSelection(translation[0].text);
+						} catch (error) {
+							if (error instanceof DeepLException) {
+								new Notice(error.message);
+							} else {
+								console.error(error, error.stack);
+								new Notice(
+									"An unknown error occured. See console for details."
+								);
+							}
+						}
+					}
+				).open();
+			},
+		});
+
+		this.addCommand({
+			id: "deepl-translate-selection-from-to",
+			name: "Translate selection: From a language to another",
+			editorCallback: async (editor: Editor) => {
+				if (editor.getSelection() === "") {
+					return;
+				}
+
+				new TranslateModal(
+					app,
+					"From",
+					Object.entries(fromLanguages).map(([code, name]) => ({
+						code,
+						name,
+					})),
+					async (from) => {
+						new TranslateModal(
+							app,
+							"To",
+							Object.entries(toLanguages).map(([code, name]) => ({
+								code,
+								name,
+							})),
+							async (to) => {
+								try {
+									const translation =
+										await this.deeplService.translate(
+											editor.getSelection(),
+											to.code,
+											from.code
+										);
+									editor.replaceSelection(
+										translation[0].text
+									);
+								} catch (error) {
+									if (error instanceof DeepLException) {
+										new Notice(error.message);
+									} else {
+										console.error(error, error.stack);
+										new Notice(
+											"An unknown error occured. See console for details."
+										);
+									}
+								}
+							}
+						).open();
+					}
+				).open();
 			},
 		});
 	}

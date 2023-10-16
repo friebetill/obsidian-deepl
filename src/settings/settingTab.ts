@@ -25,9 +25,29 @@ export class SettingTab extends PluginSettingTab {
 			text: "Commands",
 		});
 
-		containerEl.createEl("p", {
-			text: 'Translate selection: Translates the selected text from the "From language" to the "To language".',
-		});
+		new Setting(containerEl)
+			.setName("Translate selection")
+			.setDesc(
+				'Translates the selected text from the "From language" to the "To language".'
+			);
+
+		new Setting(containerEl)
+			.setName("Translate selection: to language")
+			.setDesc(
+				"The target language can be selected by suggestion modal. The target language can be selected by suggestion modal. The selection will be replaced by the translation."
+			);
+
+		new Setting(containerEl)
+			.setName("Translate selection: From a language to another")
+			.setDesc(
+				"The source and target languages can be selected by suggestion modal. The target language can be selected by suggestion modal. The selection will be replaced by the translation."
+			);
+
+		new Setting(containerEl)
+			.setName("Translate selection: To language and append to selection")
+			.setDesc(
+				"The target language can be selected by suggestion modal. The translation will be appended to the selection."
+			);
 
 		containerEl.createEl("h4", {
 			text: "Language settings",
