@@ -14,6 +14,7 @@ export const fromLanguages = {
 	ID: "Indonesian",
 	IT: "Italian",
 	JA: "Japanese",
+	KO: "Korean",
 	LT: "Lithuanian",
 	LV: "Latvian",
 	NL: "Dutch",

@@ -14,6 +14,7 @@ export const toLanguages: Record<string, string> = {
 	ID: "Indonesian",
 	IT: "Italian",
 	JA: "Japanese",
+	KO: "Korean",
 	LT: "Lithuanian",
 	LV: "Latvian",
 	NL: "Dutch",
